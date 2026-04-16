@@ -15,10 +15,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-size: cover;
+            /* 改为 contain，确保图片完整显示 */
+            background-size: contain; 
             background-position: center;
             background-repeat: no-repeat;
+            background-color: #fdf6e3; /* 这里可以设置一个和图片底色接近的颜色，消除黑边感 */
         }
+
 
         /* 音乐按钮样式 */
         #music-btn {

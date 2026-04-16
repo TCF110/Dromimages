@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>我的电子相册</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; width: 100%; overflow: hidden; background: #000; }
+
+        .swiper-container { width: 100%; height: 100%; }
+        
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* 音乐按钮样式 */
+        #music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            width: 30px;
+            height: 30px;
+            background: url('https://cdn-icons-png.flaticon.com/512/461/461248.png') no-repeat center;
+            background-size: contain;
+            cursor: pointer;
+        }
+        .rotate { animation: rotating 3s linear infinite; }
+        @keyframes rotating {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 向上滑动提示箭头 */
+        .arrow {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            z-index: 10;
+            animation: bounce 1.5s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { bottom: 15px; opacity: 1; }
+            50% { bottom: 25px; opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="music-btn" class="rotate"></div>
+    <audio id="bgm" src="M500001t4PhR3UfEzI.mp3" loop autoplay></audio>
+
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background-image: url('images/36430A3E9C0EF1E1A28D51A4C2478018.png');"></div>
+            <div class="swiper-slide" style="background-image: url('images/CCD0C0024038A3E5A8DA1C3D4031E74F.png');"></div>
+            <div class="swiper-slide" style="background-image: url('images/BD5E855EE8E03C23E9EF4C8211A4DA87.png');"></div>
+            <div class="swiper-slide" style="background-image: url('images/8402211AE97594F476215D1BC3E95030.png');"></div>
+            <div class="swiper-slide" style="background-image: url('images/BE41F44B58846F6F2C6AD6B4D402A51D.png');"></div>
+            <div class="swiper-slide" style="background-image: url('images/D0CF973FEE2829763EF3F92593B05AC6.png');"></div>
+            <div class="swiper-slide" style="background-image: url('images/134711C1038405A28F1AADE5738EFBBB.png');"></div>
+        </div>
+    </div>
+
+    <img src="https://cdn-icons-png.flaticon.com/512/25/25623.png" class="arrow" alt="向上划">
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // 初始化 Swiper
+        const swiper = new Swiper('.swiper-container', {
+            direction: 'vertical', // 上下滑动
+            loop: true,           // 循环播放
+            mousewheel: true,     // 支持鼠标滚轮
+        });
+
+        // 音乐控制逻辑
+        const musicBtn = document.getElementById('music-btn');
+        const bgm = document.getElementById('bgm');
+        let isPlaying = true;
+
+        // 自动播放处理（由于部分浏览器限制，可能需要用户点击屏幕后才会播放）
+        document.addEventListener('touchstart', function() {
+            if (isPlaying && bgm.paused) {
+                bgm.play();
+            }
+        }, { once: true });
+
+        musicBtn.addEventListener('click', function() {
+            if (bgm.paused) {
+                bgm.play();
+                musicBtn.classList.add('rotate');
+                isPlaying = true;
+            } else {
+                bgm.pause();
+                musicBtn.classList.remove('rotate');
+                isPlaying = false;
+            }
+        });
+    </script>
+</body>
+</html>
